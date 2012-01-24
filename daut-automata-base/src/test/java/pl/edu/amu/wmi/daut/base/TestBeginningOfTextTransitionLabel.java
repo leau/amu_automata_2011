@@ -35,7 +35,6 @@ public class TestBeginningOfTextTransitionLabel extends TestCase {
         //    assertTrue(true);
         //}
 
-
         /**
         * Test atrybutów.
         */
