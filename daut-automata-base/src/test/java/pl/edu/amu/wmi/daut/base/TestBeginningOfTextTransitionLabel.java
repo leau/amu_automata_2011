@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 /**
 * Klasa testujaca klase BeginningOfTextTransitionLabel.
-* 
+*
 */
 public class TestBeginningOfTextTransitionLabel extends TestCase {
 
@@ -35,7 +35,7 @@ public class TestBeginningOfTextTransitionLabel extends TestCase {
         //    assertTrue(true);
         //}
 
-       
+
         /**
         * Test atrybutów.
         */
