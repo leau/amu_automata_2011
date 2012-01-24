@@ -12,7 +12,7 @@ public class TestBeginningOfTextTransitionLabel extends TestCase {
      * Test metody doCheckContext.
      */
     public final void testDoCheckContext() {
-        BeginningOfTextTransitionLabel trans = new BeginningOfTextTransitionLabel();
+        //BeginningOfTextTransitionLabel trans = new BeginningOfTextTransitionLabel();
 
         //assertTrue(trans.doCheckContext("", 0))
         //assertTrue(trans.doCheckContext("precious", 0));
