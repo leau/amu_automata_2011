@@ -11,6 +11,356 @@ import java.util.ArrayList;
 public class TestAutomataOperations extends TestCase {
 
     /**
+    * getRidOfEpsilonTransitions() testowane na 6 automatach niedeterministycznych.
+    */
+    public void testGetRidOfEpsilonTransitionsRagularExpresion() {
+        /**
+         * testowanie omijania forow
+         */
+        NaiveAutomatonSpecification nasIn = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification nasOut = new NaiveAutomatonSpecification();
+        AutomataOperations.getRidOfEpsilonTransitions(nasIn, nasOut);
+
+        assertEquals(0, nasOut.countTransitions());
+        /**
+         *  Test 1
+         */
+        List<State> states;
+
+
+        AutomatonSpecification test1Automation = new NaiveAutomatonSpecification();
+        AutomatonSpecification test1AutomationResult =
+            new NaiveAutomatonSpecification();
+
+        State q10 = test1Automation.addState();
+        State q11 = test1Automation.addState();
+        State q12 = test1Automation.addState();
+        State q13 = test1Automation.addState();
+        State q14 = test1Automation.addState();
+        State q15 = test1Automation.addState();
+        State q16 = test1Automation.addState();
+        State q17 = test1Automation.addState();
+        State q18 = test1Automation.addState();
+        State q19 = test1Automation.addState();
+
+        test1Automation.markAsInitial(q10);
+        test1Automation.markAsFinal(q13);
+
+        test1Automation.addTransition(q10, q11, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q10, q14, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q15, q16, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q16, q17, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q16, q19, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q18, q17, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q18, q19, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q19, q13, new EpsilonTransitionLabel());
+        test1Automation.addTransition(q12, q13, new EpsilonTransitionLabel());
+
+        test1Automation.addTransition(q11, q12, new CharTransitionLabel('a'));
+        test1Automation.addTransition(q14, q15, new CharTransitionLabel('b'));
+        test1Automation.addTransition(q17, q18, new CharTransitionLabel('c'));
+
+        AutomataOperations.getRidOfEpsilonTransitions(test1Automation,
+                test1AutomationResult);
+        states = test1AutomationResult.allStates();
+        for (State s : states) {
+            List<OutgoingTransition> transitions =
+                test1AutomationResult.allOutgoingTransitions(s);
+            for (OutgoingTransition t : transitions) {
+                assertFalse(t.getTransitionLabel().canBeEpsilon());
+            }
+        }
+
+        NondeterministicAutomatonByThompsonApproach a11 =
+            new NondeterministicAutomatonByThompsonApproach(test1Automation);
+        AutomatonByRecursion a12 = new AutomatonByRecursion(test1AutomationResult);
+        assertTrue(a11.accepts("a"));
+        //assertTrue(a12.accepts("a"));
+        assertFalse(a11.accepts("ba"));
+        //assertFalse(a12.accepts("ba"));
+        assertFalse(a11.accepts("abc"));
+        //assertFalse(a12.accepts("abc"));
+        assertTrue(a11.accepts("bccccccc"));
+        //assertTrue(a12.accepts("bccccccc"));
+
+        states.clear();
+
+    }
+
+     /**
+     * Test 2.
+     */
+    public void testGetRidOfEpsilonTransitionsEmpty() {
+
+        List<State> states;
+        AutomatonSpecification test2Automation = new NaiveAutomatonSpecification();
+        AutomatonSpecification test2AutomationResult = new NaiveAutomatonSpecification();
+
+        State q20 = test2Automation.addState();
+
+        test2Automation.markAsInitial(q20);
+        test2Automation.markAsFinal(q20);
+
+        test2Automation.addLoop(q20, new EpsilonTransitionLabel());
+
+        AutomataOperations.getRidOfEpsilonTransitions(test2Automation,
+                test2AutomationResult);
+        states = test2AutomationResult.allStates();
+        for (State s : states) {
+            List<OutgoingTransition> transitions =
+        test2AutomationResult.allOutgoingTransitions(s);
+        for (OutgoingTransition t : transitions) {
+                assertFalse(t.getTransitionLabel().canBeEpsilon());
+            }
+        }
+
+        NondeterministicAutomatonByThompsonApproach a21 =
+            new NondeterministicAutomatonByThompsonApproach(test2Automation);
+        AutomatonByRecursion a22 = new AutomatonByRecursion(test2AutomationResult);
+        assertTrue(a21.accepts(""));
+        //assertTrue(a22.accepts(""));
+        assertFalse(a21.accepts("a"));
+        //assertFalse(a22.accepts("a"));
+        assertFalse(a21.accepts("bba"));
+        //assertFalse(a22.accepts("bba"));
+        assertTrue(a21.accepts(""));
+        //assertTrue(a22.accepts(""));
+
+        states.clear();
+    }
+
+     /**
+     * Test 3.
+     */
+    public void testGetRidOfEpsilonTransitionsSingle() {
+
+        List<State> states;
+        AutomatonSpecification test3Automation = new NaiveAutomatonSpecification();
+        AutomatonSpecification test3AutomationResult = new NaiveAutomatonSpecification();
+
+        State q30 = test3Automation.addState();
+        State q31 = test3Automation.addState();
+        State q32 = test3Automation.addState();
+        State q33 = test3Automation.addState();
+
+        test3Automation.markAsInitial(q30);
+        test3Automation.markAsFinal(q33);
+
+        test3Automation.addTransition(q30, q31, new EpsilonTransitionLabel());
+        test3Automation.addTransition(q32, q33, new EpsilonTransitionLabel());
+        test3Automation.addTransition(q31, q32, new CharTransitionLabel('a'));
+
+        AutomataOperations.getRidOfEpsilonTransitions(test3Automation,
+        test3AutomationResult);
+        states = test3AutomationResult.allStates();
+        for (State s : states) {
+            List<OutgoingTransition> transitions =
+                test3AutomationResult.allOutgoingTransitions(s);
+            for (OutgoingTransition t : transitions) {
+                assertFalse(t.getTransitionLabel().canBeEpsilon());
+            }
+        }
+
+        NondeterministicAutomatonByThompsonApproach a31 =
+            new NondeterministicAutomatonByThompsonApproach(test3Automation);
+        AutomatonByRecursion a32 = new AutomatonByRecursion(test3AutomationResult);
+
+        assertTrue(a31.accepts("a"));
+        //assertTrue(a32.accepts("a"));
+        assertFalse(a31.accepts(""));
+        //assertFalse(a32.accepts(""));
+        assertFalse(a31.accepts("aa"));
+        //assertFalse(a32.accepts("aa"));
+        assertTrue(a31.accepts("a"));
+        //assertTrue(a32.accepts("a"));
+
+        states.clear();
+    }
+
+     /**
+      * Test 4.
+      */
+    public void testGetRidOfEpsilonTransitionsDual() {
+
+        List<State> states;
+
+        AutomatonSpecification test4Automation = new NaiveAutomatonSpecification();
+        AutomatonSpecification test4AutomationResult =
+            new NaiveAutomatonSpecification();
+
+        State q40 = test4Automation.addState();
+        State q41 = test4Automation.addState();
+        State q42 = test4Automation.addState();
+        State q43 = test4Automation.addState();
+
+        test4Automation.markAsInitial(q40);
+        test4Automation.markAsFinal(q43);
+
+        test4Automation.addTransition(q40, q42, new EpsilonTransitionLabel());
+        test4Automation.addTransition(q41, q40, new EpsilonTransitionLabel());
+        test4Automation.addTransition(q42, q41, new EpsilonTransitionLabel());
+        test4Automation.addTransition(q40, q41, new CharTransitionLabel('a'));
+        test4Automation.addTransition(q41, q42, new CharTransitionLabel('b'));
+        test4Automation.addTransition(q42, q43, new CharTransitionLabel('b'));
+
+        AutomataOperations.getRidOfEpsilonTransitions(test4Automation,
+                test4AutomationResult);
+        states = test4AutomationResult.allStates();
+        for (State s : states) {
+            List<OutgoingTransition> transitions =
+                test4AutomationResult.allOutgoingTransitions(s);
+            for (OutgoingTransition t : transitions) {
+                assertFalse(t.getTransitionLabel().canBeEpsilon());
+            }
+        }
+
+        final NondeterministicAutomatonByThompsonApproach a41 =
+            new NondeterministicAutomatonByThompsonApproach(test4Automation);
+        AutomatonByRecursion a42 = new AutomatonByRecursion(test4AutomationResult);
+
+        assertTrue(a41.accepts("abb"));
+        //assertTrue(a42.accepts("abb"));
+        assertFalse(a41.accepts("ba"));
+        //assertFalse(a42.accepts("ba"));
+        assertTrue(a41.accepts("aaaaabbbbb"));
+        //assertTrue(a42.accepts("aaaaabbbbb"));*/
+
+        states.clear();
+    }
+     /**
+      * Test 5.
+      */
+    public void testGetRidOfEpsilonTransitionsPlain() {
+
+        List<State> states;
+
+        AutomatonSpecification test5Automation =
+            new NaiveAutomatonSpecification();
+        AutomatonSpecification test5AutomationResult =
+            new NaiveAutomatonSpecification();
+
+        State q50 = test5Automation.addState();
+        State q51 = test5Automation.addState();
+        State q52 = test5Automation.addState();
+        State q53 = test5Automation.addState();
+        State q54 = test5Automation.addState();
+
+        test5Automation.markAsInitial(q50);
+        test5Automation.markAsFinal(q54);
+        test5Automation.markAsFinal(q52);
+
+        test5Automation.addTransition(q50, q51, new EpsilonTransitionLabel());
+        test5Automation.addTransition(q50, q53, new EpsilonTransitionLabel());
+        test5Automation.addTransition(q51, q52, new CharTransitionLabel('a'));
+        test5Automation.addTransition(q53, q54, new CharTransitionLabel('b'));
+        test5Automation.addLoop(q52, new CharTransitionLabel('a'));
+        test5Automation.addLoop(q54, new CharTransitionLabel('b'));
+
+        AutomataOperations.getRidOfEpsilonTransitions(test5Automation,
+                test5AutomationResult);
+        states = test5AutomationResult.allStates();
+
+        for (State s : states) {
+            List<OutgoingTransition> transitions =
+                test5AutomationResult.allOutgoingTransitions(s);
+            for (OutgoingTransition t : transitions) {
+                assertFalse(t.getTransitionLabel().canBeEpsilon());
+            }
+        }
+
+        NondeterministicAutomatonByThompsonApproach a51 =
+            new NondeterministicAutomatonByThompsonApproach(test5Automation);
+        AutomatonByRecursion a52 = new AutomatonByRecursion(test5AutomationResult);
+
+        assertTrue(a51.accepts("a"));
+        //assertTrue(a52.accepts("a"));
+        assertFalse(a51.accepts("ab"));
+        //assertFalse(a52.accepts("ab"));
+        assertFalse(a51.accepts(""));
+        //assertFalse(a52.accepts(""));
+        assertTrue(a51.accepts("bbbbbbbbbbbb"));
+        //assertTrue(a52.accepts("bbbbbbbbbbbb"));
+
+        states.clear();
+    }
+     /**
+      * Test 6.
+      */
+    public void testGetRidOfEpsilonTransitionsComplex() {
+
+        List<State> states;
+
+        final AutomatonSpecification test6Automation = new NaiveAutomatonSpecification();
+        final AutomatonSpecification test6AutomationResult =
+                        new NaiveAutomatonSpecification();
+
+        State q60 = test6Automation.addState();
+        State q61 = test6Automation.addState();
+        State q62 = test6Automation.addState();
+        State q63 = test6Automation.addState();
+        State q64 = test6Automation.addState();
+        State q65 = test6Automation.addState();
+        State q66 = test6Automation.addState();
+        State q67 = test6Automation.addState();
+        State q68 = test6Automation.addState();
+        State q69 = test6Automation.addState();
+        State q610 = test6Automation.addState();
+        State q611 = test6Automation.addState();
+        State q612 = test6Automation.addState();
+        State q613 = test6Automation.addState();
+
+        test6Automation.markAsInitial(q60);
+        test6Automation.markAsFinal(q62);
+
+        test6Automation.addTransition(q60, q61, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q61, q63, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q63, q64, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q65, q66, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q66, q68, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q66, q610, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q66, q67, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q69, q67, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q612, q67, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q67, q66, new EpsilonTransitionLabel());
+        test6Automation.addTransition(q613, q62, new EpsilonTransitionLabel());
+        test6Automation.addLoop(q64, new CharTransitionLabel('a'));
+        test6Automation.addTransition(q64, q65, new CharTransitionLabel('b'));
+        test6Automation.addTransition(q68, q69, new CharTransitionLabel('c'));
+        test6Automation.addTransition(q610, q611, new CharTransitionLabel('d'));
+        test6Automation.addTransition(q611, q612, new CharTransitionLabel('e'));
+        test6Automation.addTransition(q67, q613, new CharTransitionLabel('f'));
+
+        AutomataOperations.getRidOfEpsilonTransitions(test6Automation,
+                        test6AutomationResult);
+        states = test6AutomationResult.allStates();
+        for (State s : states) {
+            List<OutgoingTransition> transitions =
+                        test6AutomationResult.allOutgoingTransitions(s);
+            for (OutgoingTransition t : transitions) {
+                assertFalse(t.getTransitionLabel().canBeEpsilon());
+            }
+        }
+
+        final NondeterministicAutomatonByThompsonApproach a61 =
+            new NondeterministicAutomatonByThompsonApproach(test6Automation);
+        final NondeterministicAutomatonByThompsonApproach a62 =
+            new NondeterministicAutomatonByThompsonApproach(test6AutomationResult);
+
+
+        assertTrue(a61.accepts("bcf"));
+        //assertTrue(a62.accepts("bcf"));
+        assertFalse(a61.accepts("ab"));
+        //assertFalse(a62.accepts("ab"));
+        assertFalse(a61.accepts("bcfde"));
+        //assertFalse(a62.accepts("bcfde"));
+        assertTrue(a61.accepts("aaabcccdedef"));
+        //assertTrue(a62.accepts("aaabcccdedef"));
+
+        states.clear();
+
+    }
+
+    /**
      * Test prostego automatu.
      */
     public final void testSimpleAutomaton() {
