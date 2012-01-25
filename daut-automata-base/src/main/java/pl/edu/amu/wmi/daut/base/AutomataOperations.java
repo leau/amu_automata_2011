@@ -286,7 +286,7 @@ public class AutomataOperations {
     /**
      *  dla automatu z epsilon-przejsciami tworzy rownowazny automat bez epsilon-przejsc.
      */
-    public void static getRidOfEpsilonTransitions(AutomatonSpecification epsilonAutomaton,
+    public static void getRidOfEpsilonTransitions(AutomatonSpecification epsilonAutomaton,
                 AutomatonSpecification resultAutomaton) {
         List<State> loadedStates = epsilonAutomaton.allStates();
         HashMap<State, State> connectedStates = new HashMap<State, State>();
