@@ -223,7 +223,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(a41.accepts("ba"));
         assertFalse(a42.accepts("ba"));
         assertTrue(a41.accepts("aaaaabbbbb"));
-        assertTrue(a42.accepts("aaaaabbbbb"));*/
+        assertTrue(a42.accepts("aaaaabbbbb"));
 
         states.clear();
     }
