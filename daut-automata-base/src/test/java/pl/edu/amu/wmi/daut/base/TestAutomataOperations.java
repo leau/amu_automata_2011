@@ -75,13 +75,13 @@ public class TestAutomataOperations extends TestCase {
             new NondeterministicAutomatonByThompsonApproach(test1Automation);
         AutomatonByRecursion a12 = new AutomatonByRecursion(test1AutomationResult);
         assertTrue(a11.accepts("a"));
-        //assertTrue(a12.accepts("a"));
+        assertTrue(a12.accepts("a"));
         assertFalse(a11.accepts("ba"));
-        //assertFalse(a12.accepts("ba"));
+        assertFalse(a12.accepts("ba"));
         assertFalse(a11.accepts("abc"));
-        //assertFalse(a12.accepts("abc"));
+        assertFalse(a12.accepts("abc"));
         assertTrue(a11.accepts("bccccccc"));
-        //assertTrue(a12.accepts("bccccccc"));
+        assertTrue(a12.accepts("bccccccc"));
 
         states.clear();
 
@@ -118,13 +118,13 @@ public class TestAutomataOperations extends TestCase {
             new NondeterministicAutomatonByThompsonApproach(test2Automation);
         AutomatonByRecursion a22 = new AutomatonByRecursion(test2AutomationResult);
         assertTrue(a21.accepts(""));
-        //assertTrue(a22.accepts(""));
+        assertTrue(a22.accepts(""));
         assertFalse(a21.accepts("a"));
-        //assertFalse(a22.accepts("a"));
+        assertFalse(a22.accepts("a"));
         assertFalse(a21.accepts("bba"));
-        //assertFalse(a22.accepts("bba"));
+        assertFalse(a22.accepts("bba"));
         assertTrue(a21.accepts(""));
-        //assertTrue(a22.accepts(""));
+        assertTrue(a22.accepts(""));
 
         states.clear();
     }
@@ -166,13 +166,13 @@ public class TestAutomataOperations extends TestCase {
         AutomatonByRecursion a32 = new AutomatonByRecursion(test3AutomationResult);
 
         assertTrue(a31.accepts("a"));
-        //assertTrue(a32.accepts("a"));
+        assertTrue(a32.accepts("a"));
         assertFalse(a31.accepts(""));
-        //assertFalse(a32.accepts(""));
+        assertFalse(a32.accepts(""));
         assertFalse(a31.accepts("aa"));
-        //assertFalse(a32.accepts("aa"));
+        assertFalse(a32.accepts("aa"));
         assertTrue(a31.accepts("a"));
-        //assertTrue(a32.accepts("a"));
+        assertTrue(a32.accepts("a"));
 
         states.clear();
     }
@@ -219,11 +219,11 @@ public class TestAutomataOperations extends TestCase {
         AutomatonByRecursion a42 = new AutomatonByRecursion(test4AutomationResult);
 
         assertTrue(a41.accepts("abb"));
-        //assertTrue(a42.accepts("abb"));
+        assertTrue(a42.accepts("abb"));
         assertFalse(a41.accepts("ba"));
-        //assertFalse(a42.accepts("ba"));
+        assertFalse(a42.accepts("ba"));
         assertTrue(a41.accepts("aaaaabbbbb"));
-        //assertTrue(a42.accepts("aaaaabbbbb"));*/
+        assertTrue(a42.accepts("aaaaabbbbb"));*/
 
         states.clear();
     }
@@ -273,13 +273,13 @@ public class TestAutomataOperations extends TestCase {
         AutomatonByRecursion a52 = new AutomatonByRecursion(test5AutomationResult);
 
         assertTrue(a51.accepts("a"));
-        //assertTrue(a52.accepts("a"));
+        assertTrue(a52.accepts("a"));
         assertFalse(a51.accepts("ab"));
-        //assertFalse(a52.accepts("ab"));
+        assertFalse(a52.accepts("ab"));
         assertFalse(a51.accepts(""));
-        //assertFalse(a52.accepts(""));
+        assertFalse(a52.accepts(""));
         assertTrue(a51.accepts("bbbbbbbbbbbb"));
-        //assertTrue(a52.accepts("bbbbbbbbbbbb"));
+        assertTrue(a52.accepts("bbbbbbbbbbbb"));
 
         states.clear();
     }
@@ -348,13 +348,13 @@ public class TestAutomataOperations extends TestCase {
 
 
         assertTrue(a61.accepts("bcf"));
-        //assertTrue(a62.accepts("bcf"));
+        assertTrue(a62.accepts("bcf"));
         assertFalse(a61.accepts("ab"));
-        //assertFalse(a62.accepts("ab"));
+        assertFalse(a62.accepts("ab"));
         assertFalse(a61.accepts("bcfde"));
-        //assertFalse(a62.accepts("bcfde"));
+        assertFalse(a62.accepts("bcfde"));
         assertTrue(a61.accepts("aaabcccdedef"));
-        //assertTrue(a62.accepts("aaabcccdedef"));
+        assertTrue(a62.accepts("aaabcccdedef"));
 
         states.clear();
 
