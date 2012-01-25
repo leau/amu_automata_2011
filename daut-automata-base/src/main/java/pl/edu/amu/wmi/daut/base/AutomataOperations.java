@@ -283,6 +283,36 @@ public class AutomataOperations {
         return kleeneautomaton;
     }
 
+    /**
+     *  dla automatu z epsilon-przejsciami tworzy rownowazny automat bez epsilon-przejsc.
+     */
+    public void getRidOfEpsilonTransitions(AutomatonSpecification epsilonAutomaton,
+                AutomatonSpecification resultAutomaton) {
+        List<State> loadedStates = epsilonAutomaton.allStates();
+        HashMap<State, State> connectedStates = new HashMap<State, State>();
+        for (State currentState : loadedStates)
+          connectedStates.put(currentState, resultAutomaton.addState());
+        resultAutomaton.markAsInitial(epsilonAutomaton.getInitialState());
+        for (State currentState : loadedStates) {
+          if (epsilonAutomaton.isFinal(currentState))
+            resultAutomaton.markAsFinal(connectedStates.get(currentState));
+          for (OutgoingTransition transition
+            : epsilonAutomaton.allOutgoingTransitions(currentState)) {
+            TransitionLabel label = transition.getTransitionLabel();
+              if (!(label.canBeEpsilon())) {
+                epsilonAutomaton.addTransition(connectedStates.get(currentState),
+                connectedStates.get(transition.getTargetState()),
+                transition.getTransitionLabel());
+                Set<State> epsilonClosure = epsilonAutomaton.
+                getEpsilonClosure(transition.getTargetState());
+                for (State state : epsilonClosure)
+                  resultAutomaton.addTransition(connectedStates.get(currentState),
+                  connectedStates.get(state), transition.getTransitionLabel());
+              }
+          }
+        }
+    }
+
      /**
       * Metoda tworząca automat akceptujący sumę 2 jezyków.
       */
