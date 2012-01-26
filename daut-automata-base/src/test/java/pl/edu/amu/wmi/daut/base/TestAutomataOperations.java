@@ -16,7 +16,7 @@ public class TestAutomataOperations extends TestCase {
     * UWAGA!!!.
     * kiedy getRidOfEpsilonTransitions() bedzie gotowe.
     * nalezy usunac komentarze przed: assertTrue() oraz assertFalse().
-    * w 6 ponizszych testach:.
+    * w szesciu ponizszych testach:.
     * public void testGetRidOfEpsilonTransitionsRagularExpresion().
     * public void testGetRidOfEpsilonTransitionsEmpty().
     * public void testGetRidOfEpsilonTransitionsSingle().
