@@ -13,6 +13,8 @@ public class TestAutomataOperations extends TestCase {
     /**
     * getRidOfEpsilonTransitions() testowane na 6 automatach niedeterministycznych.
     *
+    * kiedy getRidOfEpsilonTransitions() bedzie gotowe.
+    * nalezy usunąć komentarze przed: assertTrue() oraz assertFalse().
     * w ponizszych testach:.
     * public void testGetRidOfEpsilonTransitionsRagularExpresion().
     * public void testGetRidOfEpsilonTransitionsEmpty().
@@ -20,8 +22,6 @@ public class TestAutomataOperations extends TestCase {
     * public void testGetRidOfEpsilonTransitionsDual().
     * public void testGetRidOfEpsilonTransitionsPlain().
     * public void testGetRidOfEpsilonTransitionsComplex().
-    * nalezy usunąć komentarze przed: assertTrue() oraz assertFalse().
-    * kiedy getRidOfEpsilonTransitions() bedzie gotowe.
     */
     public void testGetRidOfEpsilonTransitionsRagularExpresion() {
         /**
@@ -36,7 +36,6 @@ public class TestAutomataOperations extends TestCase {
          *  Test 1
          */
         List<State> states;
-
 
         AutomatonSpecification test1Automation = new NaiveAutomatonSpecification();
         AutomatonSpecification test1AutomationResult =
