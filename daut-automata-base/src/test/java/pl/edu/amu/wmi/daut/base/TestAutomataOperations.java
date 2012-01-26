@@ -20,7 +20,7 @@ public class TestAutomataOperations extends TestCase {
     * public void testGetRidOfEpsilonTransitionsDual().
     * public void testGetRidOfEpsilonTransitionsPlain().
     * public void testGetRidOfEpsilonTransitionsComplex().
-    * nalezy usunąć komentarze przed: assertTrue/assertFalse.
+    * nalezy usunąć komentarze przed: assertTrue() oraz assertFalse().
     * kiedy getRidOfEpsilonTransitions() bedzie gotowe.
     */
     public void testGetRidOfEpsilonTransitionsRagularExpresion() {
