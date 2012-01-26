@@ -5,6 +5,8 @@ import junit.framework.TestCase;
 /**
 * Klasa testujaca klase BeginningOfTextTransitionLabel.
 *
+* gdy pojawi sie klasa BeginningOfTextTransitionLabel
+* nalezy usunac wszytskie kometarze typu '//' w testDoCheckContext()
 */
 public class TestBeginningOfTextTransitionLabel extends TestCase {
 
