@@ -13,7 +13,7 @@ public class TestAutomataOperations extends TestCase {
     /**
     * getRidOfEpsilonTransitions() testowane na 6 automatach niedeterministycznych.
     *
-    * w ponizszych metodach:.
+    * w testach ponizszych metod:.
     * public void testGetRidOfEpsilonTransitionsRagularExpresion().
     * public void testGetRidOfEpsilonTransitionsEmpty().
     * public void testGetRidOfEpsilonTransitionsSingle().
